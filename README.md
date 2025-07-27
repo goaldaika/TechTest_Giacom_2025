@@ -1,0 +1,1 @@
+# TechTest_Giacom_2025
