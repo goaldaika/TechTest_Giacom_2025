@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Giacom Tech Test
 
 ## Background
@@ -54,3 +55,6 @@ To connect to the MySQL database directly the credentials are as follows:
 If you experience further issues getting set up with the tech test please reply to the email address from which the tech test was issued with your query.
 
 Copyright (c) 2025, Giacom.
+=======
+# TechTest_Giacom_2025
+>>>>>>> 611470580a926ed9c0d4273567cafdd2ab2a318c

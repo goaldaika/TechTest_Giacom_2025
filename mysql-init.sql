@@ -196,7 +196,7 @@ DELIMITER ;
 -- Insert Order Status
 INSERT IGNORE INTO `order_status` (`Id`, `Name`) VALUES
 	(@OrderStatusCreated, 'Created'),
-	(@OrderStatusInProgress, 'In Progress'),
+	(@OrderStatusInProgress, 'InProgress'),
 	(@OrderStatusFailed, 'Failed'),	
 	(@OrderStatusCompleted, 'Completed');
 	

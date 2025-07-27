@@ -1,13 +1,16 @@
 services:
   api:
-      build: ./src
-      container_name: order-api
-      ports:
-          - 8000:8080
-      depends_on:
-        - db
-      links:
-        - "db:database"
+    build: ./src
+    container_name: order-api
+    ports:
+      - 8000:8080
+    depends_on:
+      - db
+    links:
+      - "db:database"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - OrderConnectionString=Server=database;Port=3306;Database=orders;User=root;Password=nmCsdkhj20n@Sa;SslMode=None;
   db:
     image: mysql:5.7
     container_name: order-db
