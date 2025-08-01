@@ -153,15 +153,7 @@ namespace Order.Data
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(20)
-                    .HasColumnType("varchar(20)") 
                     .IsUnicode(false);
-
-                var converter = new ValueConverter<string, OrderStatusEnum>(
-                    v => EnumUtils.ConvertToOrderStatusEnum(v),
-                    v => v.ToString()
-                );
-                entity.Property(e => e.Name)
-                    .HasConversion(converter);
             });
 
             ConfigureConversionsForTestSqliteDatabase(modelBuilder);
@@ -209,21 +201,6 @@ namespace Order.Data
         public bool IsInMemoryDatabase()
         {
             return Database.IsInMemory() || IsSqliteProviderUsed;
-        }
-    }
-    public static class EnumUtils
-    {
-        public static OrderStatusEnum ConvertToOrderStatusEnum(string value)
-        {
-            if (string.IsNullOrEmpty(value))
-            {
-                throw new ArgumentException("Status name cannot be null or empty.");
-            }
-            if (Enum.TryParse<OrderStatusEnum>(value, true, out var status))
-            {
-                return status;
-            }
-            throw new ArgumentException($"Invalid OrderStatusEnum value: {value}");
         }
     }
 }
