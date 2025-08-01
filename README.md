@@ -1,60 +1,70 @@
-<<<<<<< HEAD
-# Giacom Tech Test
+# Project Overview
 
-## Background
-Giacom Cloud Market is a B2B e-commerce platform which allows IT companies (resellers) to buy services indirectly from major vendors (Microsoft, Symantec, Webroot etc) in high volumes at low cost. IT companies then resell the purchased services on to their customers, making a small margin. Behind Cloud Market are several microservices, one of which is an Order API much like the one we are going to work on for this test.
+## Frameworks and Technologies
 
-## Concepts
-* Reseller = A customer of Giacom
-* Customer = A customer of a Reseller
-* Order = An order placed by a Reseller for a specific Customer
-* Order Item = A service and product which belongs to an Order
-* Order Status = The current state of an Order
-* Product = An end-offering which can be purchased e.g. '100GB Mailbox'
-* Service = The category the Product belongs to e.g. 'Email'
-* Profit = The difference between Cost and Price
+- **Development:**
+  - ASP.NET Web API
+  - EF Core
+  - MySQL
 
-## Time
-You should allocate approx. 2 hours to complete the tech test though it will likely take less time for more experienced engineers.
+- **Testing:**
+  - NUnit
+  - EF Core
 
-## Pre-Reqs
-* Visual Studio 2022 (or compatible IDE for working with .net)
-* .NET 8.0 SDK
-* Git
-* Docker (running Linux containers)
-* Optional: MySQL Workbench / Heidi (database client)
-* Optional: Postman (can also use any other API client)
+- **Container:**
+  - Docker
 
-## Setup
-1. Clone this repository locally
-2. Using a terminal, cd to the local repository and run 'docker-compose up db', which will start and seed the database
-3. Open the solution file in /src
-4. Start debugging or run the Order.WebAPI project then query http://localhost:8000/orders in your API client / browser to test that setup is complete. You should see orders being returned from the API
-   
-## Tasks
-Add a new API endpoint for each of the following tasks:
-1. Return Orders with a specified Order Status e.g. 'Failed'
-2. Allow an Order Status to be updated to a different status e.g. 'InProgress'
-3. Allow an Order to be created. This should include validation of any parameters
-4. Calculate profit by month for all 'completed' Orders
+## Application Structure
 
-Finally, once code-complete, close your IDE, run 'docker-compose down --volumes' to stop and remove the database container. Now run 'docker-compose up'. This will run the local database and also build the microservice in Release mode. Test the API is working correctly via this method (as this is the one Giacom will run to test the submission).
+The application consists of 6 API methods:
 
-## Submission
-Please push your code to a new github repository then send the repository link to the email address from which the tech test was issued. If applicable, add notes in the email explaining why you have chosen a particular approach.
-Alternatively, zip or git-bundle the repository and email it.
+1. **Get Orders:**
+   - Retrieves all orders along with their corresponding items.
 
-## Help
-If you happen to run into any issues when running the Docker container, try deselecting Hyper-V Services in "Windows Features" (Search for Windows Features in Start Menu), selecting again, and then restarting your computer.
+2. **Get Order By Status:**
+   - Fetches orders filtered by a specified status.
 
-To connect to the MySQL database directly the credentials are as follows:
-* Hostname: *localhost*
-* Username: *order-service*
-* Password: *nmCsdkhj20n@Sa*
+3. **Get Profit Of All Completed Order:**
+   - Returns profit data for orders with status "Completed" for all months of a specified year. If no year is provided, records default to the current year.
 
-If you experience further issues getting set up with the tech test please reply to the email address from which the tech test was issued with your query.
+4. **Get Total Profit Of Each Month:**
+   - Calculates total profit for orders with status "Completed" for all months of a specified year. If no year is provided, records default to the current year.
 
-Copyright (c) 2025, Giacom.
-=======
-# TechTest_Giacom_2025
->>>>>>> 611470580a926ed9c0d4273567cafdd2ab2a318c
+5. **Update Order Status:**
+   - Updates the status of a specified order.
+
+6. **Create Order:**
+   - Accepts an `OrderDetail` object as input to create a new order.
+
+## Application Architecture
+
+The changes in the structure of the application compared to the original version:
+
+- **OrderStatusEnum:**
+  - Order statuses are implemented as an enumeration (`OrderStatusEnum`), mapped to the database, aligning with standard practices for management systems.
+
+- **Interface:**
+  - All interfaces are consolidated into the same files as their implementation methods for streamlined development and maintenance.
+
+- **Api client:**
+  - Swagger is configured as the API client for testing. The Swagger setup is ready to use.
+
+- **Docker:**
+  - Docker is configured to support Swagger. To test, run `docker-compose up` and access the Swagger UI at `http://localhost:8000/swagger`.
+
+- **Test Units:**
+  - Unit tests are implemented for each API method, covering expected standard behaviors.
+
+## Notable Considerations and Future Enhancements
+
+- **Exception Handling:**
+  - Implement enhanced exception handling to prevent exposing raw errors to users, improving security and user experience.
+
+- **Pagination Enhancement:**
+  - The current dataset includes approximately 100 order records, suitable for retrieving all at once. In production environments with potentially thousands of records, implementing pagination for `GetOrders` and `GetOrderByStatus` is recommended to reduce performance load.
+
+- **Unit Testing:**
+  - Expand unit test coverage to include edge cases and additional scenarios for comprehensive validation.
+
+- **MySql and Docker studies:**
+  - As MySQL and Docker were newly adopted for this project, further optimization of database queries and container configurations could enhance application performance with additional time investment.
