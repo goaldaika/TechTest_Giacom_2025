@@ -100,11 +100,12 @@ namespace OrderService.WebAPI.Controllers
         {
             try
             {
-                var orderResult = await _orderService.CreateOrder(order);
                 if (order == null)
                 {
                     return NotFound($"No input to created order.");
                 }
+                
+                var orderResult = await _orderService.CreateOrder(order);
                 if(orderResult) return Ok("Order created successfully");
                 return BadRequest(new { error = "Failed to create order." });
             }
@@ -115,3 +116,4 @@ namespace OrderService.WebAPI.Controllers
         }
     }
 }
+
